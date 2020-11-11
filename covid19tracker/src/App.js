@@ -6,6 +6,8 @@ import {
   Card,
   CardContent,
 } from "@material-ui/core";
+import InfoBox from "./InfoBox";
+import Map from "./Map";
 import "./App.css";
 
 function App() {
@@ -45,33 +47,35 @@ function App() {
 
   return (
     <div className="app">
-      <div className="app__header">
-        <h1>COVID 19 TRACKER</h1>
-        <FormControl className="app__dropdown">
-          <Select variant="outlined" onChange={onCountryChange} value={country}>
-            <MenuItem value="worldwide">Worldwide</MenuItem>
-            {countries.map((country) => (
-              <MenuItem value={country.value}>{country.name}</MenuItem>
-            ))}
+      <div className="app__left">
+        <div className="app__header">
+          <h1>COVID 19 TRACKER</h1>
+          <FormControl className="app__dropdown">
+            <Select
+              variant="outlined"
+              onChange={onCountryChange}
+              value={country}
+            >
+              <MenuItem value="worldwide">Worldwide</MenuItem>
+              {countries.map((country) => (
+                <MenuItem value={country.value}>{country.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
 
-            {/* <MenuItem value="worldwide">Worldwide1</MenuItem>
-            <MenuItem value="worldwide">Worldwide2</MenuItem>
-            <MenuItem value="worldwide">Worldwide4</MenuItem> */}
-          </Select>
-        </FormControl>
+        <div className="app__stats">
+          <InfoBox title="Coronavirus Cases" cases="1232" total="2000" />
+          <InfoBox title="Recovered" cases="122" total="3000" />
+          <InfoBox title="Deaths" cases="124" total="1000" />
+        </div>
+
+        <Map />
       </div>
-
-      {/* Header */}
-      {/* Title + Dropdown */}
-
-      {/* Infoboxs */}
-      {/* Infoboxs */}
-      {/* Infoboxs */}
-
-      {/* Table */}
-      {/* Graph */}
-
-      {/* Map */}
+      <Card className="app__right">
+        {/* Table */}
+        {/* Graph */}
+      </Card>
     </div>
   );
 }
