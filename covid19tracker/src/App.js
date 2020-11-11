@@ -9,6 +9,7 @@ import {
 import InfoBox from "./InfoBox";
 import Map from "./Map";
 import Table from "./Table";
+import LineGraph from "./LineGraph";
 import { sortData } from "./util";
 import "./App.css";
 
@@ -17,6 +18,7 @@ function App() {
   const [country, setCountry] = useState(["worldwide"]);
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+  const [casesType, setCasesType] = useState("cases");
 
   //USESTATE = CREATE VARIABLE IN JSX
   //USEEFFECT = PULL DATA FROM API
@@ -48,6 +50,8 @@ function App() {
     // call function
     getCountriesData();
   }, []);
+
+  console.log(casesType);
 
   const onCountryChange = async (event) => {
     //when you click on a country in drop down menu
@@ -110,13 +114,14 @@ function App() {
         <Map />
       </div>
       <Card className="app__right">
-        {/* Table */}
         <CardContent>
-          <h3>Live Cases by Country</h3>
-          <Table countries={tableData} />
-          <h3>Worldwide new cases</h3>
+          <div className="app__information">
+            <h3>Live Cases by Country</h3>
+            <Table countries={tableData} />
+            <h3>Worldwide new {casesType}</h3>
+            <LineGraph casesType={casesType} />
+          </div>
         </CardContent>
-        {/* Graph */}
       </Card>
     </div>
   );
