@@ -13,9 +13,9 @@ import Map from "./Map";
 import "./App.css";
 import { sortData } from "./util";
 import numeral from "numeral";
-import "leaflet/dist/leaflet.css";
+// import "leaflet/dist/leaflet.css";
 
-function App() {
+const App = () => {
   const [country, setInputCountry] = useState(["worldwide"]);
   const [countryInfo, setCountryInfo] = useState({});
   const [countries, setCountries] = useState([]);
@@ -57,7 +57,7 @@ function App() {
     getCountriesData();
   }, []);
 
-  console.log(casesType);
+  // console.log(casesType);
 
   const onCountryChange = async (event) => {
     //when you click on a country in drop down menu
@@ -74,7 +74,6 @@ function App() {
 
         //all the data from country response
         setCountryInfo(data);
-        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
         setMapCenter(
           data.countryInfo?.lat
             ? [data.countryInfo.lat, data.countryInfo.long]
@@ -83,8 +82,6 @@ function App() {
         setMapZoom(4);
       });
   };
-
-  // console.log("Country Info >>>>>>", countryInfo);
 
   return (
     <div className="app">
@@ -142,6 +139,6 @@ function App() {
       </Card>
     </div>
   );
-}
+};
 
 export default App;
