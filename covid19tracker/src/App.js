@@ -7,18 +7,23 @@ import {
   CardContent,
 } from "@material-ui/core";
 import InfoBox from "./InfoBox";
-import Map from "./Map";
-import Table from "./Table";
 import LineGraph from "./LineGraph";
-import { sortData } from "./util";
+import Table from "./Table";
+import Map from "./Map";
 import "./App.css";
+import { sortData } from "./util";
+import numeral from "numeral";
+import "leaflet/dist/leaflet.css";
 
 function App() {
-  const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState(["worldwide"]);
+  const [country, setInputCountry] = useState(["worldwide"]);
   const [countryInfo, setCountryInfo] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [mapCountries, setMapCountries] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [casesType, setCasesType] = useState("cases");
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(3);
 
   //USESTATE = CREATE VARIABLE IN JSX
   //USEEFFECT = PULL DATA FROM API
@@ -33,7 +38,7 @@ function App() {
 
   useEffect(() => {
     const getCountriesData = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
+      fetch("https://disease.sh/v3/covid-19/countries")
         .then((response) => response.json())
         .then((data) => {
           const countries = data.map((country) => ({
@@ -41,9 +46,10 @@ function App() {
             value: country.countryInfo.iso2,
           }));
 
-          const sortedData = sortData(data);
-          setTableData(sortedData);
+          let sortedData = sortData(data);
           setCountries(countries);
+          setMapCountries(data);
+          setTableData(sortedData);
         });
     };
 
@@ -61,18 +67,24 @@ function App() {
       countryCode === "worldwide"
         ? "https://disease.sh/v3/covid-19/all"
         : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
-
     await fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setCountry(countryCode);
+        setInputCountry(countryCode);
 
         //all the data from country response
         setCountryInfo(data);
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapCenter(
+          data.countryInfo?.lat
+            ? [data.countryInfo.lat, data.countryInfo.long]
+            : { lat: 34.80746, lng: -40.4796 }
+        );
+        setMapZoom(4);
       });
   };
 
-  console.log("Country Info >>>>>>", countryInfo);
+  // console.log("Country Info >>>>>>", countryInfo);
 
   return (
     <div className="app">
@@ -82,8 +94,8 @@ function App() {
           <FormControl className="app__dropdown">
             <Select
               variant="outlined"
-              onChange={onCountryChange}
               value={country}
+              onChange={onCountryChange}
             >
               <MenuItem value="worldwide">Worldwide</MenuItem>
               {countries.map((country) => (
@@ -92,9 +104,9 @@ function App() {
             </Select>
           </FormControl>
         </div>
-
         <div className="app__stats">
           <InfoBox
+            // onClick={(e) => setCasesType("cases")}
             title="Coronavirus Cases"
             cases={countryInfo.todayCases}
             total={countryInfo.cases}
@@ -111,7 +123,12 @@ function App() {
           />
         </div>
 
-        <Map />
+        <Map
+          countries={mapCountries}
+          casesType={casesType}
+          center={mapCenter}
+          zoom={mapZoom}
+        />
       </div>
       <Card className="app__right">
         <CardContent>

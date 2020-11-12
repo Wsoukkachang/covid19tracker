@@ -78,7 +78,6 @@ function LineGraph({ casesType }) {
           console.log(chartData);
         });
     };
-
     fetchData();
   }, [casesType]);
 
