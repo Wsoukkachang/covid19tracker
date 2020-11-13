@@ -103,17 +103,19 @@ const App = () => {
         </div>
         <div className="app__stats">
           <InfoBox
-            // onClick={(e) => setCasesType("cases")}
+            onClick={(e) => setCasesType("cases")}
             title="Coronavirus Cases"
             cases={countryInfo.todayCases}
             total={countryInfo.cases}
           />
           <InfoBox
+            onClick={(e) => setCasesType("recovered")}
             title="Recovered"
             cases={countryInfo.todayRecovered}
             total={countryInfo.recovered}
           />
           <InfoBox
+            onClick={(e) => setCasesType("deaths")}
             title="Deaths"
             cases={countryInfo.todayDeaths}
             total={countryInfo.deaths}
