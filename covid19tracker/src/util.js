@@ -1,6 +1,6 @@
 import React from "react";
 import numeral from "numeral";
-import { Marker, Circle, Popup } from "react-leaflet";
+import { Circle, Popup } from "react-leaflet";
 import "./Map.css";
 
 const casesTypeColors = {
@@ -26,7 +26,6 @@ const casesTypeColors = {
 
 export const sortData = (data) => {
   const sortedData = [...data];
-
   return sortedData.sort((a, b) => (a.cases > b.cases ? -1 : 1));
 };
 
@@ -50,13 +49,14 @@ export const showDataOnMap = (data, casesType = "cases") =>
           ></div>
           <div className="info-name">{country.country}</div>
           <div className="info-confirmed">
-            Cases: {numeral(country.cases).format("0,0")}
+            <strong>Cases: </strong> {numeral(country.cases).format("0,0")}
           </div>
           <div className="info-recovered">
-            Recovered: {numeral(country.recovered).format("0,0")}
+            <strong>Recovered: </strong>{" "}
+            {numeral(country.recovered).format("0,0")}
           </div>
           <div className="info-deaths">
-            Deaths: {numeral(country.deaths).format("0,0")}
+            <strong>Deaths: </strong> {numeral(country.deaths).format("0,0")}
           </div>
         </div>
       </Popup>

@@ -23,7 +23,8 @@ const App = () => {
   const [tableData, setTableData] = useState([]);
   const [casesType, setCasesType] = useState("cases");
   const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
-  const [mapZoom, setMapZoom] = useState(3);
+  const [mapZoom, setMapZoom] = useState(2);
+  const [flag, setFlag] = useState([]);
 
   //USESTATE = CREATE VARIABLE IN JSX
   //USEEFFECT = PULL DATA FROM API
@@ -72,13 +73,14 @@ const App = () => {
 
         //all the data from country response
         setCountryInfo(data);
+        setFlag(data.countryInfo?.flag);
         setMapCenter(
           data.countryInfo?.lat
             ? [data.countryInfo.lat, data.countryInfo.long]
-            : { lat: 34.80746, lng: -40.4796 }
+            : { lat: 0, lng: 0 }
         );
-        setMapZoom(5);
-        console.log("THIS IS COUNTRYINFO", countryInfo);
+        setMapZoom(3.5);
+        console.log("THIS IS COUNTRYINFO", data.countryInfo);
       });
   };
 
@@ -87,7 +89,12 @@ const App = () => {
       <div className="app__left">
         <div className="app__header">
           <h1>COVID-19 TRACKER</h1>
-          <h3>{countryInfo.country}</h3>
+          <h3>
+            {/* set Worldwide as default */}
+            {countryInfo.country === undefined
+              ? "Worldwide"
+              : `${countryInfo.country}`}
+          </h3>
           <FormControl className="app__dropdown">
             <Select
               variant="outlined"
@@ -127,6 +134,8 @@ const App = () => {
           casesType={casesType}
           center={mapCenter}
           zoom={mapZoom}
+          country={countryInfo}
+          flag={flag}
         />
       </div>
       <Card className="app__right">
