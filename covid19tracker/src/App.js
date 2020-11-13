@@ -57,8 +57,6 @@ const App = () => {
     getCountriesData();
   }, []);
 
-  // console.log(casesType);
-
   const onCountryChange = async (event) => {
     //when you click on a country in drop down menu
     const countryCode = event.target.value;
@@ -79,7 +77,8 @@ const App = () => {
             ? [data.countryInfo.lat, data.countryInfo.long]
             : { lat: 34.80746, lng: -40.4796 }
         );
-        setMapZoom(4);
+        setMapZoom(5);
+        console.log("THIS IS COUNTRYINFO", countryInfo);
       });
   };
 
@@ -87,7 +86,8 @@ const App = () => {
     <div className="app">
       <div className="app__left">
         <div className="app__header">
-          <h1>COVID 19 TRACKER</h1>
+          <h1>COVID-19 TRACKER</h1>
+          <h3>{countryInfo.country}</h3>
           <FormControl className="app__dropdown">
             <Select
               variant="outlined"
