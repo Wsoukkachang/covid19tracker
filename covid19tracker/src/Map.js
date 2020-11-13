@@ -23,7 +23,7 @@ function Map({ countries, casesType, center, zoom }) {
         <Marker position={center}></Marker>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://maptiles.p.rapidapi.com/en/map/v1/{z}/{x}/{y}.png?rapidapi-key=0ea065ba13mshcd46c3b0a24ab40p1fdad0jsn6f4ee991f91f"
         />
         {showDataOnMap(countries, casesType)}
       </LeafMap>
