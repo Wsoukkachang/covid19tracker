@@ -19,10 +19,11 @@ body {
 
 .app__left {
   flex: 0.7;
+  margin-right: 20px;
 }
 
 .app__right {
-  flex: 0.25;
+  flex: 0.3;
 }
 
 .app__stats {
@@ -33,6 +34,10 @@ body {
 @media (max-width: 990px) {
   .app {
     flex-direction: column;
+  }
+
+  .app__left {
+    margin-left: 0px;
   }
 
   .app__right {

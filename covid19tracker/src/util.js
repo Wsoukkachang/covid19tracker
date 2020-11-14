@@ -29,6 +29,10 @@ export const sortData = (data) => {
   return sortedData.sort((a, b) => (a.cases > b.cases ? -1 : 1));
 };
 
+// formats numbers
+export const prettyPrintStat = (stat) =>
+  stat ? `+${numeral(stat).format("0.0a")}` : "+0";
+
 // draw circles on map
 export const showDataOnMap = (data, casesType = "cases") =>
   data.map((country) => (
