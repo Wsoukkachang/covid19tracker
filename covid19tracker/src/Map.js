@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import L from "leaflet";
 
 import icon from "leaflet/dist/images/marker-icon.png";
@@ -18,6 +18,13 @@ function Map({ countries, country, flag, casesType = "cases", center, zoom }) {
 
   L.Marker.prototype.options.icon = DefaultIcon;
   console.log("THIS IS COUNTRY POP", country);
+
+  useEffect((country) => {
+    if (country === "worldwide") {
+      flag = "https://i.imgur.com/G9TauqT.jpg";
+    }
+  }, "");
+
   return (
     <div className="map">
       <LeafMap center={center} zoom={zoom}>

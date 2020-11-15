@@ -24,7 +24,7 @@ const App = () => {
   const [casesType, setCasesType] = useState("cases");
   const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
   const [mapZoom, setMapZoom] = useState(2);
-  const [flag, setFlag] = useState([]);
+  const [flag, setFlag] = useState("https://i.imgur.com/G9TauqT.jpg");
 
   //USESTATE = CREATE VARIABLE IN JSX
   //USEEFFECT = PULL DATA FROM API
@@ -73,7 +73,14 @@ const App = () => {
 
         //all the data from country response
         setCountryInfo(data);
-        setFlag(data.countryInfo?.flag);
+        //Default flag to worldwide
+        // setFlag(data.countryInfo.flag);
+
+        setFlag(
+          data.countryInfo?.flag === undefined
+            ? "https://i.imgur.com/G9TauqT.jpg"
+            : data.countryInfo.flag
+        );
         setMapCenter(
           data.countryInfo?.lat
             ? [data.countryInfo.lat, data.countryInfo.long]
@@ -83,7 +90,7 @@ const App = () => {
         console.log("THIS IS COUNTRYINFO", data.countryInfo);
       });
   };
-
+  console.log("THIS IS FLAG", { flag });
   return (
     <div className="app">
       <div className="app__left">
@@ -148,8 +155,8 @@ const App = () => {
           <div className="app__information">
             <h3>Live Cases by Country</h3>
             <Table countries={tableData} />
-            <h3>Worldwide new {casesType}</h3>
-            <LineGraph casesType={casesType} />
+            <h3 className="worldNews">Worldwide new {casesType}</h3>
+            <LineGraph className="app__graph" casesType={casesType} />
           </div>
         </CardContent>
       </Card>
