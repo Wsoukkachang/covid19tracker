@@ -7,7 +7,7 @@ body {
 }
 .app {
   display: flex;
-  height: 100%;
+  height: 96vh;
   justify-content: space-evenly;
   padding: 20px;
 }
@@ -60,17 +60,49 @@ body {
   justify-content: space-between;
 }
 
+.dropDown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.MuiCardContent-root:last-child {
+  padding-bottom: 10px !important;
+}
+
 @media (max-width: 990px) {
   .app {
     flex-direction: column;
+    height: auto;
   }
 
   .app__left {
     margin-left: 0px;
+    height: 100%;
   }
 
   .app__right {
     margin-top: 20px;
+    height: 100%;
+  }
+
+  .app__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
+  }
+
+  .dropDown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .MuiCardContent-root:last-child {
+    padding-bottom: 10px !important;
   }
 }
 

@@ -102,6 +102,8 @@ const App = () => {
               ? "Worldwide"
               : `${countryInfo.country}`}
           </h3>
+        </div>
+        <div className="dropDown">
           <FormControl className="app__dropdown">
             <Select
               variant="outlined"
@@ -115,6 +117,7 @@ const App = () => {
             </Select>
           </FormControl>
         </div>
+
         <div className="app__stats">
           <InfoBox
             isRed
